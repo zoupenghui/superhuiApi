@@ -68,7 +68,9 @@ namespace Superhui.Api.Controllers
                 {
                     strBuilder.Append($"\"path\":\"{GetFileName(fileInfo.Name)}\",");
                     strBuilder.Append("\"children\":[");
+                    // windows系统独有的路径分割符\
                     // Render($@"{subPath}\\{fileInfo.Name}".TrimStart('\\'));
+                    // windows&linux都可识别/路径分割符
                     Render($@"{subPath}/{fileInfo.Name}".TrimStart('\\'));
                     strBuilder.Remove(strBuilder.Length - 1, 1);
                     strBuilder.Append("]}");

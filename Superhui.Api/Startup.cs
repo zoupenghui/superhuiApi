@@ -36,10 +36,12 @@ namespace Superhui.Api
                     .AllowCredentials();
                 });
             });
-            services.AddSingleton<IFileProvider>(new PhysicalFileProvider("/Users/zph/Desktop/"));
+            // services.AddSingleton<IFileProvider>(new PhysicalFileProvider("/Users/zph/Desktop/"));
+            // services.AddSingleton<IFileProvider>(new PhysicalFileProvider("C:\\"));
             // services.AddSingleton<IFileProvider>(new PhysicalFileProvider("C:\\"));
 
-            //services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
+            // services.AddSingleton<IFileProvider>(new PhysicalFileProvider("C:\\Users\\XPS\\Desktop"));
+            services.AddSingleton<IFileProvider>(new PhysicalFileProvider("C:/Users/XPS/Desktop"));
             services.AddMvc();
         }
 

@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Superhui_API", "Superhui_API\Superhui_API.csproj", "{128F1DFD-8CD7-427C-8AED-D6E78A2E960B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Superhui.Api", "Superhui.Api\Superhui.Api.csproj", "{128F1DFD-8CD7-427C-8AED-D6E78A2E960B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

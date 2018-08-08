@@ -2,26 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-namespace Superhui_API.Controllers
+namespace Superhui.Api.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowSepecificOrigins")]
     public class ValuesController : Controller
     {
-        ILogger<ValuesController> logger;
-        public ValuesController(ILogger<ValuesController> log)
-        {
-            logger = log;
-        }
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            logger.LogDebug("log msg!");
-            logger.LogInformation("log infomation!");
-            return new string[] { "value", "value2", };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
@@ -33,8 +27,9 @@ namespace Superhui_API.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IEnumerable<string> Post([FromBody]string value)
         {
+            return new string[] { "value3", "value2" };
         }
 
         // PUT api/values/5

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Superhui_API
+namespace Superhui.Api
 {
     public class Startup
     {
@@ -23,6 +25,21 @@ namespace Superhui_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(option =>
+            {
+                option.AddPolicy("AllowSepecificOrigins", builder =>
+                {
+                    //builder.WithOrigins("http://www.zoupenghui.com", "http://127.0.0.1:8000", "http://localhost:8000")
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
+            });
+            services.AddSingleton<IFileProvider>(new PhysicalFileProvider("/Users/zph/Desktop/"));
+            // services.AddSingleton<IFileProvider>(new PhysicalFileProvider("C:\\"));
+
+            //services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
             services.AddMvc();
         }
 
@@ -32,10 +49,14 @@ namespace Superhui_API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             app.UseStaticFiles();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: null,
+                    template: "{controller}/{action}/{id?}");
+            });
         }
     }
 }

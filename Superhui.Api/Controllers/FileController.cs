@@ -23,7 +23,7 @@ namespace Superhui.Api.Controllers
 
         // GET api/values
         [HttpGet]
-        public async Task<string> Get()
+        public string Get()
         {
             //var output = new StringBuilder("");
             //IDirectoryContents dir = _fileProvider.GetDirectoryContents("Note");

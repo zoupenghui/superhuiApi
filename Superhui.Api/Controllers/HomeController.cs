@@ -6,26 +6,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
 
 namespace Superhui.Api.Controllers
 {
     [EnableCors("AllowSepecificOrigins")]
-    public class NoteController : Controller
+    public class HomeController : Controller
     {
         private readonly IFileProvider _fileProvider;
-        public NoteController(IFileProvider fileProvider)
+        private ILogger<HomeController> logger;
+        public HomeController(IFileProvider fileProvider, ILogger<HomeController> log)
         {
             _fileProvider = fileProvider;
+            logger = log;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-        public async Task<string> Note(string id)
+        public async Task<string> LocalFile(string catchall)
         {
-            string notePath = id.Replace('-', '/');
-            IFileInfo file = _fileProvider.GetFileInfo(notePath);
+            logger.LogInformation($"request local file : {HttpContext.Request.Path}");
+            logger.LogInformation($"controller: {RouteData.Values["controller"]}");
+            logger.LogInformation($"action: {RouteData.Values["action"]}");
+            logger.LogInformation($"catchall: {RouteData.Values["catchall"]}");
+            logger.LogInformation($"catchall: {catchall}");
+            string path = catchall.TrimStart('/');
+            IFileInfo file = _fileProvider.GetFileInfo(path);
 
             string res = "";
             using (var stream = file.CreateReadStream())
